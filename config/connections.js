@@ -32,6 +32,18 @@ module.exports.connections = {
     adapter: 'sails-disk'
   },
 
+  /*pouch: {
+      adapter: 'waterline-pouchdb',
+
+      sync:{
+              protocol: 'http',
+              host: '52.91.46.42',
+              port: '5984',
+              user: 'btc-admin',
+              password: 'damsel-custard-tramway-ethanol',
+            },
+    }*/
+
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *

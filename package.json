@@ -13,11 +13,13 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
+    "pouchdb": "^6.4.3",
     "rand-token": "^0.2.1",
     "rc": "1.0.1",
     "sails": "~0.12.9",
     "sails-disk": "~0.10.9",
-    "sails-hook-validation": "^0.4.6"
+    "sails-hook-validation": "^0.4.6",
+    "waterline-pouchdb": "^0.1.4"
   },
   "scripts": {
     "start": "babel-node app.js"

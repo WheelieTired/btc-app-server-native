@@ -2,9 +2,8 @@
 /**
 * Users.js
 */
-
-var nano = require('nano')('http://52.91.46.42:5984');
-var usersTable = nano.use('_users');
+var PouchDB = require('pouchdb');
+var pouchDB = new PouchDB('http://btc-admin:damsel-custard-tramway-ethanol@52.91.46.42:5984/_users');
 
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 30;
@@ -13,6 +12,10 @@ module.exports = {
 	attributes: {
 		firstName: {
 			required: true,
+		},
+
+		lastName: {
+		    required: true,
 		},
 
 		email: {
@@ -40,6 +43,9 @@ module.exports = {
 		firstName: {
 			required: 'First name is required.',
 		},
+		lastName: {
+		    required: 'Last name is required.',
+		},
 		email: {
 			required: 'Email address is required.',
 			email: 'Email address is not valid.',
@@ -60,21 +66,27 @@ module.exports = {
 	},
 
 	add(attrs, next) {
+
 		const payload = {
-			firstName: String(attrs.firstName).trim(),
+		    _id: "org.couchdb.user:" + String(attrs.email).trim(),
+		    type: "user",
+		    name: String(attrs.email).trim(),
+		    roles: [],
+		    verified: false,
+			first: String(attrs.firstName).trim(),
 			email: String(attrs.email).trim(),
 			password: String(attrs.password).trim(),
+			last: String(attrs.lastName).trim(),
 		};
-		return this.create(payload).exec(next);
-	},
 
-	create(payload){
-        usersTable.insert( payload, function(err, body, header){
+		pouchDB.put(payload, function(err, body, header){
             if (err) {
                 console.log('error:', err.message);
             }
-            console.log('user successfully added');
-            console.log('body');
-        })
-	}
+            else{
+                console.log('user successfully added');
+            }
+         });
+	},
+
 };

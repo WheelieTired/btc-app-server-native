@@ -20,5 +20,19 @@ module.exports = {
   // models: {
   //   connection: 'someMongodbServer'
   // }
+/*datastores: {
+
+  pouch: {
+      adapter: require('waterline-pouchdb'),
+      //path: './tmp', //optional
+      sync:{
+        protocol: 'http',
+        host: '52.91.46.42',
+        port: '5984',
+        user: 'btc-admin',
+        password: 'damsel-custard-tramway-ethanol',
+      },
+    }
+    }*/
 
 };
