@@ -24,7 +24,7 @@ module.exports.routes = {
 
 	'post /clients': 'ClientsController.create',
 
-	'get /users?email=*': {
+	'get /users': {
 		cors: {
 			headers: 'Content-Type, Client-ID',
 		},
