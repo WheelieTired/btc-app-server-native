@@ -24,6 +24,14 @@ module.exports.routes = {
 
 	'post /clients': 'ClientsController.create',
 
+	'get /users?email=*': {
+		cors: {
+			headers: 'Content-Type, Client-ID',
+		},
+		controller: 'UsersController',
+		action: 'get',
+	},
+
 	'post /users': {
 		cors: {
 			headers: 'Content-Type, Client-ID',
@@ -48,5 +56,4 @@ module.exports.routes = {
 	},
 
 	'post /users/auth/revoke': 'UsersAuthController.revoke',
-	'get /users': 'UsersController.getAll',
 };

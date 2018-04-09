@@ -13,8 +13,10 @@ module.exports = {
 		});
 	},
 
-	getAll(req, res) {
-		Users.find().exec((err, users) => {
+	get(req, res) {
+		console.log("received the request");
+		Users.find(req.allParams()).exec((err, users) => {
+			console.log("You got got");
 			if (err) {
 				return res.negotiate(err);
 			}

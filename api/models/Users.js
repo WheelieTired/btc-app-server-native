@@ -84,9 +84,34 @@ module.exports = {
                 console.log('error:', err.message);
             }
             else{
-                console.log('user successfully added');
+                console.log('user successfully added 2');
             }
          });
+	},
+
+	find(attrs, next) {
+		console.log("You made it");
+		const id = "org.couchdb.user:" + String(attrs.email).trim();
+		const payload = {
+				_id: "org.couchdb.user:" + String(attrs.email).trim(),
+				type: "user",
+				name: String(attrs.email).trim(),
+				roles: [],
+				verified: false,
+			email: String(attrs.email).trim(),
+			password: String(attrs.password).trim(),
+		};
+
+		pouchDB.get(id, function(doc){
+			return db.remove(doc);
+		}).then( function (result){
+			if (err) {
+				console.log('error', err.message);
+			}
+			else{
+				console.log('user got');
+			}
+			});
 	},
 
 };
