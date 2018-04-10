@@ -14,6 +14,7 @@
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "pouchdb": "^6.4.3",
+    "pouchdb-authentication": "^1.1.2",
     "rand-token": "^0.2.1",
     "rc": "1.0.1",
     "sails": "~0.12.9",
