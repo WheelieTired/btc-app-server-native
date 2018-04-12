@@ -5,7 +5,10 @@
 
 const passport = require('passport');
 const moment = require('moment');
-
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-authentication'));
+const pdbad = 'http://btc-admin:damsel-custard-tramway-ethanol@52.91.46.42:5984/_session';
+// const pdbad = 'http://127.0.0.1:5984/_session';
 const expiresIn = expiresAt =>
 	Math.round(moment.duration(
 		moment(expiresAt).diff(moment())
@@ -27,30 +30,15 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
 
 module.exports = {
 	login(req, res) {
-		passport.authenticate(['basic'], { session: false }, (authErr, user) => {
-			if (authErr || !user) {
-				return res.unauthorized();
-			}
-
-			return Tokens.findOrAdd({
-				user: user.id,
-				type: 'access',
-			}, (accessTokenErr, accessToken) => {
-				if (accessTokenErr) {
-					return res.negotiate(accessTokenErr);
-				}
-
-				return Tokens.findOrAdd({
-					user: user.id,
-					type: 'refresh',
-				}, (refreshTokenErr, refreshToken) => {
-					if (refreshTokenErr) {
-						return res.negotiate(refreshTokenErr);
-					}
-					return res.ok(formatTokenResponse(accessToken, refreshToken, user));
-				});
-			});
-		})(req, res);
+        var pouchDB = new PouchDB(pdbad, {skip_setup: true});
+        const params = req.allParams();
+        pouchDB.login(params.name, params.password, res, function(err, resp){
+            if (err){
+                return res.unauthorized();
+            } else{
+                return res.ok(resp);
+            }
+        });
 	},
 
 	refresh(req, res) {
