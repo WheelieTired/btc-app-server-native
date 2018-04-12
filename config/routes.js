@@ -24,20 +24,20 @@ module.exports.routes = {
 
 	'post /clients': 'ClientsController.create',
 
-	'get /users': {
-		cors: {
-			headers: 'Content-Type, Client-ID',
-		},
-		controller: 'UsersController',
-		action: 'get',
-	},
-
 	'post /users': {
 		cors: {
 			headers: 'Content-Type, Client-ID',
 		},
 		controller: 'UsersController',
 		action: 'create',
+	},
+
+	'post /users/changePassword': {
+		cors: {
+			headers: 'Content-Type, Client-ID',
+		},
+		controller: 'UsersController',
+		action: 'changePassword',
 	},
 
 	'post /users/auth': {

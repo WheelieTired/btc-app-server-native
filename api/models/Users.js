@@ -89,7 +89,7 @@ module.exports = {
          });
 	},
 
-	find(attrs, next) {
+	changePassword(attrs, next) {
 		console.log("You made it");
 		const id = "org.couchdb.user:" + String(attrs.email).trim();
 		const payload = {
