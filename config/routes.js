@@ -32,6 +32,14 @@ module.exports.routes = {
 		action: 'create',
 	},
 
+	'post /users/changePassword': {
+		cors: {
+			headers: 'Content-Type, Client-ID',
+		},
+		controller: 'UsersController',
+		action: 'changePassword',
+	},
+
 	'post /users/auth': {
 		cors: {
 			headers: 'Content-Type, Client-ID, Authorization',
@@ -48,5 +56,4 @@ module.exports.routes = {
 	},
 
 	'post /users/auth/revoke': 'UsersAuthController.revoke',
-	'get /users': 'UsersController.getAll',
 };
