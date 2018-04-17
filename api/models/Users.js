@@ -2,6 +2,21 @@
 /**
 * Users.js
 */
+
+var jwt = require('jsonwebtoken');
+var fs = require('fs');
+var nodemailer = require('nodemailer');
+var _ = require('underscore');
+const transporter = nodemailer.createTransport();
+
+const secret = 'secret';
+const issuer = 'bicycletouringcompanion';
+
+const algorithm = 'HS256';
+
+const subject = 'Register Your Bicycle Touring Companion Account';
+const mailAccount = 'no-reply@bicycletouringcompanion.com';
+
 var PouchDB = require('pouchdb');
 var pouchDB = new PouchDB('http://btc-admin:damsel-custard-tramway-ethanol@52.91.46.42:5984/_users');
 
@@ -67,6 +82,11 @@ module.exports = {
 
 	add(attrs, next) {
 
+        const email = attrs.email;
+        const roles = [];
+        const verification = jwt.sign( { email , roles }, secret, { issuer, algorithm } );
+        const token = verification;
+
 		const payload = {
 		    _id: "org.couchdb.user:" + String(attrs.email).trim(),
 		    type: "user",
@@ -77,6 +97,7 @@ module.exports = {
 			email: String(attrs.email).trim(),
 			password: String(attrs.password).trim(),
 			last: String(attrs.lastName).trim(),
+			verification: verification,
 		};
 
 		pouchDB.put(payload, function(err, body, header){
@@ -87,9 +108,20 @@ module.exports = {
                 console.log('user successfully added 2');
             }
          });
+
+         const registrationTemplate = fs.readFileSync( './emailTemplates/registration.html', 'utf8' );
+         const {first, last} = attrs;
+         const assetDomain = 'http://localhost:1337';
+         const api = 'http://localhost:1337';
+         transporter.sendMail( {
+                 from: mailAccount,
+                 to: email,
+                 subject: subject,
+                 html: _.template( registrationTemplate )( { first, last, api, token, assetDomain } )
+               } );
 	},
 
-	changePassword(attrs, next) {
+	find(attrs, next) {
 		console.log("You made it");
 		const id = "org.couchdb.user:" + String(attrs.email).trim();
 		const payload = {
@@ -115,3 +147,4 @@ module.exports = {
 	},
 
 };
+
