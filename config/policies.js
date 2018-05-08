@@ -28,6 +28,7 @@ module.exports.policies = {
 	UsersController: {
 		create: ['hasClientId'],
 		changePassword: ['hasClientId'],
+		resetPassword: ['hasClientId'],
 	},
 
 	UsersAuthController: {

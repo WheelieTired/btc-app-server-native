@@ -144,4 +144,37 @@ module.exports = {
 			});
 	},
 
+	resetPassword(attrs, next) {
+		const id = "org.couchdb.user:" + String(attrs.email).trim();
+		const payload = {
+				_id: "org.couchdb.user:" + String(attrs.email).trim(),
+				type: "user",
+				name: String(attrs.email).trim(),
+				roles: [],
+				verified: false,
+			email: String(attrs.email).trim(),
+			password: String(attrs.password).trim(),
+		};
+
+		pouchDB.get(id, function(doc){
+			return db.remove(doc);
+		}).then( function (result){
+			if (err) {
+				console.log('error', err.message);
+			}
+			else{
+			}
+			});
+
+			const forgotPasswordTemplate = fs.readFileSync( './emailTemplates/forgotPassword.html', 'utf8' );
+			const assetDomain = 'http://localhost:1337';
+			const api = 'http://localhost:1337';
+			transporter.sendMail( {
+							from: mailAccount,
+							to: email,
+							subject: subject,
+							html: _.template( registrationTemplate )( { api, token, assetDomain } )
+						} );
+	},
+
 };
