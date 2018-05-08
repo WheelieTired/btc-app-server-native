@@ -4,12 +4,16 @@
   "description": "Demo server for react-native-authentication",
   "keywords": [],
   "dependencies": {
-    "bcrypt": "^1.0.0",
+    "bcrypt": "^1.0.3",
     "ejs": "^2.5.2",
     "eslint-config-airbnb-base": "^9.0.0",
+    "fs": "0.0.1-security",
+    "generate-password": "^1.4.0",
     "include-all": "^1.0.0",
+    "jsonwebtoken": "^8.2.1",
     "moment": "^2.15.2",
     "nano": "^6.4.3",
+    "nodemailer": "~2.7.2",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
@@ -20,6 +24,7 @@
     "sails": "~0.12.9",
     "sails-disk": "~0.10.9",
     "sails-hook-validation": "^0.4.6",
+    "underscore": "^1.8.3",
     "waterline-pouchdb": "^0.1.4"
   },
   "scripts": {

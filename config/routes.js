@@ -40,6 +40,14 @@ module.exports.routes = {
 		action: 'changePassword',
 	},
 
+	'post /users/forgotPassword': {
+		cors: {
+			headers: 'Content-Type, Client-ID',
+		},
+		controller: 'UsersController',
+		action: 'resetPassword',
+	},
+
 	'post /users/auth': {
 		cors: {
 			headers: 'Content-Type, Client-ID, Authorization',
