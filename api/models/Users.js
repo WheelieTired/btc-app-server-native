@@ -122,7 +122,6 @@ module.exports = {
 	},
 
 	find(attrs, next) {
-		console.log("You made it");
 		const id = "org.couchdb.user:" + String(attrs.email).trim();
 		const payload = {
 				_id: "org.couchdb.user:" + String(attrs.email).trim(),
@@ -141,10 +140,8 @@ module.exports = {
 				console.log('error', err.message);
 			}
 			else{
-				console.log('user got');
 			}
 			});
 	},
 
 };
-
