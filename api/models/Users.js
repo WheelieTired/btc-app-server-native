@@ -16,6 +16,7 @@ const algorithm = 'HS256';
 
 const subject = 'Register Your Bicycle Touring Companion Account';
 const mailAccount = 'no-reply@bicycletouringcompanion.com';
+const resetPasswordSubject = 'Reset Your Bicycle Touring Companion Password';
 
 var PouchDB = require('pouchdb');
 var pouchDB = new PouchDB('http://btc-admin:damsel-custard-tramway-ethanol@52.91.46.42:5984/_users');
@@ -172,8 +173,8 @@ module.exports = {
 			transporter.sendMail( {
 							from: mailAccount,
 							to: email,
-							subject: subject,
-							html: _.template( registrationTemplate )( { api, token, assetDomain } )
+							subject: resetPasswordSubject,
+							html: _.template( forgotPasswordTemplate )( { api, token, assetDomain } )
 						} );
 	},
 
